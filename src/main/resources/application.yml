@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: citronix
+  datasource:
+    url: jdbc:postgresql://localhost:5432/citronix
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
