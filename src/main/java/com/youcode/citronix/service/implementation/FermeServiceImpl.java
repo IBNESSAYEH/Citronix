@@ -22,7 +22,7 @@ public class FermeServiceImpl implements FermeService {
 
     @Override
     public FermeResponseDto createFerme(FermeRequestDto fermeRequestDto) {
-        Ferme ferme = fermeMapper.toEntity(fermeRequestDto);
+        Ferme ferme = fermeMapper.FermeRequestDtotoFerme(fermeRequestDto);
         ferme.setDateCreation(LocalDate.now());
         Ferme createdFerme = fermeRepository.save(ferme);
         return fermeMapper.toResponseDto(createdFerme);
