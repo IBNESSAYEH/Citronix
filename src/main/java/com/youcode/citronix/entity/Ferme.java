@@ -4,14 +4,15 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity(name = "fermes")
 @Data
 public class Ferme {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue
+    private UUID id;
 
     @Column(nullable = false)
     private String nom;
@@ -20,8 +21,10 @@ public class Ferme {
     private String localisation;
 
     @Column(nullable = false)
-    private String superficie;
+    private Double superficie;
 
     @Column(nullable = false)
     private LocalDate dateCreation;
+
+
 }
