@@ -13,7 +13,7 @@ import org.mapstruct.factory.Mappers;
 public interface FermeMapper {
 
         @Mapping(target = "id", ignore = true)
-        Ferme toEntity(FermeRequestDto fermeRequestDto);
+        Ferme FermeRequestDtotoFerme(FermeRequestDto fermeRequestDto);
 
 
         FermeResponseDto toResponseDto(Ferme ferme);
