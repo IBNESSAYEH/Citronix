@@ -18,7 +18,7 @@ public class FermeResponseDto {
 
     private String localisation;
 
-    private Double superficie;
+    private String superficie;
 
     private LocalDate dateCreation;
 
