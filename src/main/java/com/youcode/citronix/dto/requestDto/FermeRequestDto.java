@@ -18,5 +18,5 @@ public class FermeRequestDto {
     private String localisation;
 
     @NotNull(message = "la superficie du ferme ne peut pas etre null")
-    private Double superficie;
+    private String superficie;
 }

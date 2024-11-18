@@ -12,7 +12,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface FermeMapper {
 
-        @Mapping(target = "id", ignore = true)
+        FermeMapper INSTANCE = Mappers.getMapper(FermeMapper.class);
         Ferme FermeRequestDtotoFerme(FermeRequestDto fermeRequestDto);
 
 

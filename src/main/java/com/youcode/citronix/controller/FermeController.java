@@ -24,9 +24,8 @@ public class FermeController {
 
   @PostMapping
   public ResponseEntity<FermeResponseDto> createFerme(@RequestBody @Valid FermeRequestDto fermeRequestDto) throws Exception {
-    if(fermeRequestDto.getSuperficie() == null) throw new Exception(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+    if(fermeRequestDto.getSuperficie() == null || fermeRequestDto.getNom().isBlank() || fermeRequestDto.getLocalisation().isBlank()) throw new Exception(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
     FermeResponseDto fermeResponseDto = fermeService.createFerme(fermeRequestDto);
-
     return new ResponseEntity<>(fermeResponseDto, HttpStatus.CREATED);
   }
 

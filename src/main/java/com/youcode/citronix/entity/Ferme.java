@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "fermes")
-
+@Data
 public class Ferme {
 
     @Id
@@ -21,48 +22,13 @@ public class Ferme {
     private String localisation;
 
     @Column(nullable = false)
-    private Double superficie;
+    private String superficie;
 
     @Column(nullable = false)
     private LocalDate dateCreation;
 
-    public UUID getId() {
-        return id;
-    }
+    @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL)
+    private List<Champ> champs;
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getLocalisation() {
-        return localisation;
-    }
-
-    public void setLocalisation(String localisation) {
-        this.localisation = localisation;
-    }
-
-    public Double getSuperficie() {
-        return superficie;
-    }
-
-    public void setSuperficie(Double superficie) {
-        this.superficie = superficie;
-    }
-
-    public LocalDate getDateCreation() {
-        return dateCreation;
-    }
-
-    public void setDateCreation(LocalDate dateCreation) {
-        this.dateCreation = dateCreation;
-    }
 }
