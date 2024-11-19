@@ -10,6 +10,8 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface ChampMapper {
     ChampMapper INSTANCE = Mappers.getMapper(ChampMapper.class);
+
+    @Mapping(target = "id", ignore = true)
     Champ ChampRequestDtoToChamp(ChampRequestDto ChampRequestDto);
     ChampResponseDto  champToChampResponseDto(Champ champ);
 }

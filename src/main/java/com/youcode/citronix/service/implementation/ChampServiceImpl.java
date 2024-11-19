@@ -28,8 +28,8 @@ public class ChampServiceImpl implements ChampService {
 
     @Override
     public ChampResponseDto createChamp(ChampRequestDto champRequestDto) {
-        UUID champIdFromRequest = champRequestDto.getFerme().getId();
-        Optional<Ferme> optionalFerme = fermeRepository.findById(champIdFromRequest);
+        UUID fermeIdFromRequest = champRequestDto.getFerme().getId();
+        Optional<Ferme> optionalFerme = fermeRepository.findById(fermeIdFromRequest);
 
         if (optionalFerme.isPresent()) {
             Champ champCreated = champMapper.ChampRequestDtoToChamp(champRequestDto);
@@ -38,7 +38,7 @@ public class ChampServiceImpl implements ChampService {
             champResponseDto.setFerme(null);
             return champResponseDto;
         } else {
-            throw new RuntimeException("Ferme with id " + champIdFromRequest + " not found");
+            throw new RuntimeException("Ferme with id " + fermeIdFromRequest + " not found");
         }
     }
 
