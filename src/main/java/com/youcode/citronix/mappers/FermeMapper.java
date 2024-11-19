@@ -13,6 +13,8 @@ import org.mapstruct.factory.Mappers;
 public interface FermeMapper {
 
         FermeMapper INSTANCE = Mappers.getMapper(FermeMapper.class);
+
+        @Mapping(target = "id", ignore = true)
         Ferme FermeRequestDtotoFerme(FermeRequestDto fermeRequestDto);
 
 

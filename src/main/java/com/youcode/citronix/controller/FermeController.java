@@ -3,6 +3,7 @@ package com.youcode.citronix.controller;
 import com.youcode.citronix.dto.requestDto.FermeRequestDto;
 import com.youcode.citronix.dto.responseDto.FermeResponseDto;
 import com.youcode.citronix.entity.Ferme;
+import com.youcode.citronix.exception.FermeException;
 import com.youcode.citronix.exception.enums.ErrorMessages;
 import com.youcode.citronix.mappers.FermeMapper;
 import com.youcode.citronix.service.FermeService;
@@ -23,8 +24,8 @@ public class FermeController {
   private FermeService fermeService;
 
   @PostMapping
-  public ResponseEntity<FermeResponseDto> createFerme(@RequestBody @Valid FermeRequestDto fermeRequestDto) throws Exception {
-    if(fermeRequestDto.getSuperficie() == null || fermeRequestDto.getNom().isBlank() || fermeRequestDto.getLocalisation().isBlank()) throw new Exception(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+  public ResponseEntity<FermeResponseDto> createFerme(@RequestBody @Valid FermeRequestDto fermeRequestDto) throws FermeException {
+    if(fermeRequestDto.getSuperficie() == null || fermeRequestDto.getNom().isBlank() || fermeRequestDto.getLocalisation().isBlank()) throw new FermeException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
     FermeResponseDto fermeResponseDto = fermeService.createFerme(fermeRequestDto);
     return new ResponseEntity<>(fermeResponseDto, HttpStatus.CREATED);
   }
