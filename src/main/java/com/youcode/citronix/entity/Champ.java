@@ -3,14 +3,15 @@ package com.youcode.citronix.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "champs")
 @Data
 public class Champ {
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     private String nom;
 
@@ -19,5 +20,8 @@ public class Champ {
     @ManyToOne
     @JoinColumn(name = "ferme_id", nullable = false)
     private Ferme ferme;
+
+    @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL)
+    private List<Arbre> arbres;
 
 }

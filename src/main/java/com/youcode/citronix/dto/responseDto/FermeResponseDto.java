@@ -12,7 +12,7 @@ import java.util.UUID;
 @Data
 public class FermeResponseDto {
 
-    private UUID id;
+    private long id;
 
     private String nom;
 
@@ -21,6 +21,7 @@ public class FermeResponseDto {
     private String superficie;
 
     private LocalDate dateCreation;
+
 
 
 }
