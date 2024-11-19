@@ -16,7 +16,5 @@ public interface FermeMapper {
 
         @Mapping(target = "id", ignore = true)
         Ferme FermeRequestDtotoFerme(FermeRequestDto fermeRequestDto);
-
-
         FermeResponseDto toResponseDto(Ferme ferme);
 }

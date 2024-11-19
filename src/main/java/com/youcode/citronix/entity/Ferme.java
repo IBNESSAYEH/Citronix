@@ -12,8 +12,8 @@ import java.util.UUID;
 public class Ferme {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @Column(nullable = false)
     private String nom;

@@ -5,8 +5,13 @@ import com.youcode.citronix.dto.responseDto.FermeResponseDto;
 import com.youcode.citronix.entity.Ferme;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public interface FermeService {
     FermeResponseDto createFerme(FermeRequestDto fermeRequestDto);
+    List<FermeResponseDto> getAllFermes();
+    FermeResponseDto getFermeById(long id);
+    FermeResponseDto updateFerme(long id, FermeRequestDto fermeRequestDto);
+    void deleteFerme(long id);
 }
