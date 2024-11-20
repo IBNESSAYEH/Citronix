@@ -4,7 +4,9 @@ import lombok.Data;
 @Data
 public class RecoltDetailRequestDto {
 
-    private Long recolteId;
-    private Long arbreId;
+    private long recolteId;
+    private long arbreId;
     private Double quantite;
+
+
 }

@@ -10,6 +10,7 @@ public class ArbreRequestDto {
 
     @NotNull(message = "Date of plantation cannot be null")
     private LocalDate datePlantation;
+   
 
     @NotNull(message = "Champ ID cannot be null")
     private long champId;

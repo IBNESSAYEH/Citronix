@@ -11,10 +11,10 @@ public class Vente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private long id;
+    @Column(nullable = false)
     private LocalDate dateVente;
-
+    @Column(nullable = false)
     private Double prixUnitaire;
 
     @ManyToOne

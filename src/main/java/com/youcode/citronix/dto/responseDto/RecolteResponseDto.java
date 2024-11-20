@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 public class RecolteResponseDto {
 
-    private Long id;
+    private long id;
     private Saison saison;
     private LocalDate dateRecolte;
     private Double quantiteTotale;

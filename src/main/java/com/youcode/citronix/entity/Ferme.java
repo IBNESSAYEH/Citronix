@@ -22,7 +22,7 @@ public class Ferme {
     private String localisation;
 
     @Column(nullable = false)
-    private String superficie;
+    private Double superficie;
 
     @Column(nullable = false)
     private LocalDate dateCreation;

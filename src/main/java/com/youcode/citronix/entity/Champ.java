@@ -12,9 +12,9 @@ public class Champ {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
+    @Column(nullable = false)
     private String nom;
-
+    @Column(nullable = false)
     private Double superficie;
 
     @ManyToOne
@@ -23,5 +23,7 @@ public class Champ {
 
     @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL)
     private List<Arbre> arbres;
+
+
 
 }

@@ -5,7 +5,6 @@ import com.youcode.citronix.dto.responseDto.FermeResponseDto;
 import com.youcode.citronix.entity.Ferme;
 import com.youcode.citronix.exception.FermeException;
 import com.youcode.citronix.exception.enums.ErrorMessages;
-import com.youcode.citronix.mappers.FermeMapper;
 import com.youcode.citronix.service.FermeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

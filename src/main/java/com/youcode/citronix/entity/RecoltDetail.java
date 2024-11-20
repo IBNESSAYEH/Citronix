@@ -8,7 +8,7 @@ public class RecoltDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "recolte_id", nullable = false)

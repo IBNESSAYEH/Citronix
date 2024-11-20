@@ -12,4 +12,5 @@ public class RecolteRequestDto {
     private Saison saison;
     private LocalDate dateRecolte;
     private Double quantiteTotale;
+    private long fermeId;
 }
