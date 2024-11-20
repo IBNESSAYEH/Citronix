@@ -1,12 +1,13 @@
 package com.youcode.citronix.service.implementation;
+
 import com.youcode.citronix.dto.requestDto.RecoltDetailRequestDto;
 import com.youcode.citronix.dto.responseDto.RecoltDetailResponseDto;
 import com.youcode.citronix.entity.RecoltDetail;
-import com.youcode.citronix.mappers.RecoltDetailMapper;
 import com.youcode.citronix.repository.RecoltDetailRepository;
 import com.youcode.citronix.repository.RecolteRepository;
 import com.youcode.citronix.repository.ArbreRepository;
 import com.youcode.citronix.service.RecoltDetailService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,33 +27,34 @@ public class RecoltDetailServiceImpl implements RecoltDetailService {
     private ArbreRepository arbreRepository;
 
     @Autowired
-    private RecoltDetailMapper recoltDetailMapper;
+    private ModelMapper modelMapper;
 
     @Override
     public RecoltDetailResponseDto createRecoltDetail(RecoltDetailRequestDto recoltDetailRequestDto) {
-        RecoltDetail recoltDetail = recoltDetailMapper.toEntity(recoltDetailRequestDto);
+        RecoltDetail recoltDetail = modelMapper.map(recoltDetailRequestDto, RecoltDetail.class);
         recoltDetail = recoltDetailRepository.save(recoltDetail);
-        return recoltDetailMapper.toResponseDto(recoltDetail);
+        return modelMapper.map(recoltDetail, RecoltDetailResponseDto.class);
     }
 
     @Override
     public List<RecoltDetailResponseDto> getAllRecoltDetails() {
         List<RecoltDetail> recoltDetails = recoltDetailRepository.findAll();
         return recoltDetails.stream()
-                .map(recoltDetailMapper::toResponseDto)
+                .map(recoltDetail -> modelMapper.map(recoltDetail, RecoltDetailResponseDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public RecoltDetailResponseDto getRecoltDetailById(Long id) {
-        RecoltDetail recoltDetail = recoltDetailRepository.findById(id).orElseThrow(() -> new RuntimeException("RecoltDetail not found"));
-        return recoltDetailMapper.toResponseDto(recoltDetail);
+        RecoltDetail recoltDetail = recoltDetailRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("RecoltDetail not found"));
+        return modelMapper.map(recoltDetail, RecoltDetailResponseDto.class);
     }
 
     @Override
     public void deleteRecoltDetail(Long id) {
-        RecoltDetail recoltDetail = recoltDetailRepository.findById(id).orElseThrow(() -> new RuntimeException("RecoltDetail not found"));
+        RecoltDetail recoltDetail = recoltDetailRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("RecoltDetail not found"));
         recoltDetailRepository.delete(recoltDetail);
     }
 }
-

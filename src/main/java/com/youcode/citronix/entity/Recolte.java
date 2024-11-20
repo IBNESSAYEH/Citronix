@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity(name = "recoltes")
 @Data
@@ -12,13 +13,21 @@ public class Recolte {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Enumerated(EnumType.STRING)
     private Saison saison;
-
+    @Column(nullable = false)
     private LocalDate dateRecolte;
-
+    @Column(nullable = false)
     private Double quantiteTotale;
+
+
+
+    @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL)
+    private List<Vente> ventes;
+
+    @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL)
+    private List<RecoltDetail> recoltDetails;
 }
 

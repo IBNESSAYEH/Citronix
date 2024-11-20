@@ -9,7 +9,9 @@ public class VenteRequestDto {
 
     private LocalDate dateVente;
     private Double prixUnitaire;
-    private Long recolteId;
+    private long recolteID;;
     private String client;
+
+
 }
 

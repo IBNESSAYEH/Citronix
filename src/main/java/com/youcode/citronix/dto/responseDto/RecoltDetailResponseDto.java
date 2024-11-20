@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class RecoltDetailResponseDto {
 
-    private Long id;
+    private long id;
     private Double quantite;
 }

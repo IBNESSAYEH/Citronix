@@ -3,10 +3,10 @@ package com.youcode.citronix.service.implementation;
 import com.youcode.citronix.dto.requestDto.VenteRequestDto;
 import com.youcode.citronix.dto.responseDto.VenteResponseDto;
 import com.youcode.citronix.entity.Vente;
-import com.youcode.citronix.mappers.VenteMapper;
 import com.youcode.citronix.repository.VenteRepository;
 import com.youcode.citronix.repository.RecolteRepository;
 import com.youcode.citronix.service.VenteService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,29 +23,29 @@ public class VenteServiceImpl implements VenteService {
     private RecolteRepository recolteRepository;
 
     @Autowired
-    private VenteMapper venteMapper;
+    private ModelMapper modelMapper;
 
     @Override
     public VenteResponseDto createVente(VenteRequestDto venteRequestDto) {
-        Vente vente = venteMapper.toEntity(venteRequestDto);
-        vente.setRecolte(recolteRepository.findById(venteRequestDto.getRecolteId())
+        Vente vente = modelMapper.map(venteRequestDto, Vente.class);
+        vente.setRecolte(recolteRepository.findById(venteRequestDto.getRecolteID())
                 .orElseThrow(() -> new RuntimeException("Recolte not found")));
         vente = venteRepository.save(vente);
-        return venteMapper.toResponseDto(vente);
+        return modelMapper.map(vente, VenteResponseDto.class);
     }
 
     @Override
     public List<VenteResponseDto> getAllVentes() {
         List<Vente> ventes = venteRepository.findAll();
         return ventes.stream()
-                .map(venteMapper::toResponseDto)
+                .map(vente -> modelMapper.map(vente, VenteResponseDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public VenteResponseDto getVenteById(Long id) {
         Vente vente = venteRepository.findById(id).orElseThrow(() -> new RuntimeException("Vente not found"));
-        return venteMapper.toResponseDto(vente);
+        return modelMapper.map(vente, VenteResponseDto.class);
     }
 
     @Override
@@ -54,10 +54,10 @@ public class VenteServiceImpl implements VenteService {
         vente.setDateVente(venteRequestDto.getDateVente());
         vente.setPrixUnitaire(venteRequestDto.getPrixUnitaire());
         vente.setClient(venteRequestDto.getClient());
-        vente.setRecolte(recolteRepository.findById(venteRequestDto.getRecolteId())
+        vente.setRecolte(recolteRepository.findById(venteRequestDto.getRecolteID())
                 .orElseThrow(() -> new RuntimeException("Recolte not found")));
         vente = venteRepository.save(vente);
-        return venteMapper.toResponseDto(vente);
+        return modelMapper.map(vente, VenteResponseDto.class);
     }
 
     @Override
@@ -66,4 +66,3 @@ public class VenteServiceImpl implements VenteService {
         venteRepository.delete(vente);
     }
 }
-
