@@ -20,11 +20,17 @@ import org.springframework.web.context.request.WebRequest;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value={FermeException.class})
-    public ResponseEntity<Object> HandleUserException(FermeException ex, WebRequest request)
+    public ResponseEntity<Object> HandleFermeException(FermeException ex, WebRequest request)
     {
         ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage());
 
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = {FermeNotFoundException.class})
+    public ResponseEntity<Object> handleFermeNotFoundException(FermeNotFoundException ex, WebRequest request) {
+        ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage());
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value= MethodArgumentNotValidException.class)

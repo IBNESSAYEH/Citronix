@@ -24,11 +24,18 @@ public class Ferme {
     @Column(nullable = false)
     private Double superficie;
 
+    @Column(nullable = true)
+    private Double SuperficieExploitee;
+
     @Column(nullable = false)
     private LocalDate dateCreation;
 
     @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL)
     private List<Champ> champs;
 
+    @PrePersist
+    public void prePrsist(){
+        dateCreation = LocalDate.now();
+    }
 
 }
