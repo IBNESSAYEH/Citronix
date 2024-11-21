@@ -2,8 +2,7 @@ package com.youcode.citronix.controller;
 
 import com.youcode.citronix.dto.requestDto.FermeRequestDto;
 import com.youcode.citronix.dto.responseDto.FermeResponseDto;
-import com.youcode.citronix.entity.Ferme;
-import com.youcode.citronix.exception.FermeException;
+import com.youcode.citronix.exception.fermeExceptions.FermeException;
 import com.youcode.citronix.exception.enums.ErrorMessages;
 import com.youcode.citronix.service.FermeService;
 import jakarta.validation.Valid;

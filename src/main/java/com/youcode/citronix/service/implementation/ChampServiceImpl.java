@@ -4,12 +4,16 @@ import com.youcode.citronix.dto.requestDto.ChampRequestDto;
 import com.youcode.citronix.dto.responseDto.ChampResponseDto;
 import com.youcode.citronix.entity.Champ;
 import com.youcode.citronix.entity.Ferme;
+import com.youcode.citronix.exception.champExceptions.ChampNotFoundException;
+import com.youcode.citronix.exception.fermeExceptions.FermeNotFoundException;
+import com.youcode.citronix.exception.fermeExceptions.NombreChampInsuffisant;
+import com.youcode.citronix.exception.fermeExceptions.SuperficieInsuffisanteException;
 import com.youcode.citronix.repository.ChampRepository;
 import com.youcode.citronix.repository.FermeRepository;
 import com.youcode.citronix.service.ChampService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,32 +21,45 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ChampServiceImpl implements ChampService {
 
-    @Autowired
-    private ChampRepository champRepository;
+    private final ChampRepository champRepository;
 
-    @Autowired
-    private FermeRepository fermeRepository;
+    private final FermeRepository fermeRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public ChampResponseDto createChamp(ChampRequestDto champRequestDto) {
         long fermeIdFromRequest = champRequestDto.getFermeId();
+        boolean checkFermeConditions= fermeCreationValidation(fermeIdFromRequest,champRequestDto);
+    if (checkFermeConditions) {
+        Champ champCreated = modelMapper.map(champRequestDto, Champ.class);
+        champCreated.setId(0);
+        Champ createdChamp = champRepository.save(champCreated);
+        return modelMapper.map(createdChamp, ChampResponseDto.class);
+    }else{
+        throw new SuperficieInsuffisanteException("superficie insuffisante");
+    }
+}
+    @Transactional
+    public boolean fermeCreationValidation(long fermeIdFromRequest, ChampRequestDto champRequestDto){
         Optional<Ferme> optionalFerme = fermeRepository.findById(fermeIdFromRequest);
-
-        if (optionalFerme.isPresent()) {
-            Champ champCreated = modelMapper.map(champRequestDto, Champ.class);
-            champCreated.setFerme(optionalFerme.get());
-            Champ createdChamp = champRepository.save(champCreated);
-            ChampResponseDto champResponseDto = modelMapper.map(createdChamp, ChampResponseDto.class);
-            champResponseDto.setFerme(null);
-            return champResponseDto;
-        } else {
-            throw new RuntimeException("Ferme with id " + fermeIdFromRequest + " not found");
+        if (optionalFerme.isEmpty()) {
+            throw new FermeNotFoundException("ferme not found");
+        }else if(optionalFerme.get().getSuperficie() / 2 < champRequestDto.getSuperficie() ){
+            throw new SuperficieInsuffisanteException("superficie should not pass the 50% of the ferme");
+        }else if(optionalFerme.get().getNombreChamp() < 1){
+            throw new NombreChampInsuffisant("le nombre de champ dans la ferme et insuffisant");
         }
+        else if(optionalFerme.get().getSuperficie() > optionalFerme.get().getSuperficieExploitee() + champRequestDto.getSuperficie() ){
+            optionalFerme.get().setSuperficieExploitee(optionalFerme.get().getSuperficieExploitee() + champRequestDto.getSuperficie());
+            optionalFerme.get().setNombreChamp(optionalFerme.get().getNombreChamp()- 1);
+            fermeRepository.save(optionalFerme.get());
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -56,24 +73,50 @@ public class ChampServiceImpl implements ChampService {
 
     @Override
     public ChampResponseDto getChampById(long id) {
-        Champ champ = champRepository.findById(id).orElseThrow(() -> new RuntimeException("Champ not found"));
+        Champ champ = champRepository.findById(id).orElseThrow(() -> new ChampNotFoundException("Champ not found"));
+
         return modelMapper.map(champ, ChampResponseDto.class);
     }
 
     @Override
+    @Transactional
     public ChampResponseDto updateChamp(long id, ChampRequestDto champRequestDto) {
-        Champ champ = champRepository.findById(id).orElseThrow(() -> new RuntimeException("Champ not found"));
+        Champ champ = champRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Champ not found"));
+
+        updateSuperficieAndFerme(champ, champRequestDto);
+
         champ.setNom(champRequestDto.getNom());
         champ.setSuperficie(champRequestDto.getSuperficie());
-        champ.setFerme(fermeRepository.findById(champRequestDto.getFermeId())
-                .orElseThrow(() -> new RuntimeException("Ferme not found")));
         champ = champRepository.save(champ);
+
         return modelMapper.map(champ, ChampResponseDto.class);
     }
 
+    private void updateSuperficieAndFerme(Champ champ, ChampRequestDto champRequestDto) {
+        Double oldSuperficie = champ.getSuperficie();
+        Double newSuperficie = champRequestDto.getSuperficie();
+        Double updatedSuperficieExploitee = champ.getFerme().getSuperficieExploitee() - oldSuperficie + newSuperficie;
+        if (newSuperficie > updatedSuperficieExploitee) {
+            throw new SuperficieInsuffisanteException("Superficie insuffisante");
+        }
+        champ.getFerme().setSuperficieExploitee(updatedSuperficieExploitee);
+        if (!fermeCreationValidation(champ.getFerme().getId(), champRequestDto)) {
+            throw new SuperficieInsuffisanteException("Superficie insuffisante");
+        }
+
+        fermeRepository.save(champ.getFerme());
+    }
+
     @Override
+    @Transactional
     public void deleteChamp(long id) {
         Champ champ = champRepository.findById(id).orElseThrow(() -> new RuntimeException("Champ not found"));
+        Ferme ferme = champ.getFerme();
+        ferme.setSuperficieExploitee(ferme.getSuperficieExploitee() - champ.getSuperficie());
+        fermeRepository.save(ferme);
         champRepository.delete(champ);
     }
+
+
 }
