@@ -1,4 +1,4 @@
-package com.youcode.citronix.exception;
+package com.youcode.citronix.exception.fermeExceptions;
 
 public class FermeNotFoundException extends RuntimeException {
     public FermeNotFoundException(String message) {

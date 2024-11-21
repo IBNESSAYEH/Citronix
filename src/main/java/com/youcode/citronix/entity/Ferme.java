@@ -30,12 +30,17 @@ public class Ferme {
     @Column(nullable = false)
     private LocalDate dateCreation;
 
+    @Column(nullable = false)
+    private int nombreChamp;
+
     @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL)
     private List<Champ> champs;
 
     @PrePersist
     public void prePrsist(){
         dateCreation = LocalDate.now();
+        SuperficieExploitee = 0.0;
+        nombreChamp = 10;
     }
 
 }

@@ -8,4 +8,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.UUID;
 @Repository
 public interface ChampRepository extends JpaRepository<Champ, Long> {
+    boolean existsByNom(String nom);
 }

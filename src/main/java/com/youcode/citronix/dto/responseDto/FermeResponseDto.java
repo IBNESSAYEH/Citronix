@@ -22,6 +22,4 @@ public class FermeResponseDto {
 
     private LocalDate dateCreation;
 
-
-
 }
