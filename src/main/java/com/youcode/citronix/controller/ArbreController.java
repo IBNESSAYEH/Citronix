@@ -3,6 +3,7 @@ package com.youcode.citronix.controller;
 import com.youcode.citronix.dto.requestDto.ArbreRequestDto;
 import com.youcode.citronix.dto.responseDto.ArbreResponseDto;
 import com.youcode.citronix.service.ArbreService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class ArbreController {
     private ArbreService arbreService;
 
     @PostMapping
-    public ResponseEntity<ArbreResponseDto> createArbre(@RequestBody ArbreRequestDto arbreRequestDto) {
+    public ResponseEntity<ArbreResponseDto> createArbre(@RequestBody @Valid ArbreRequestDto arbreRequestDto) {
         return new ResponseEntity<>(arbreService.createArbre(arbreRequestDto), HttpStatus.CREATED);
     }
 
@@ -33,7 +34,7 @@ public class ArbreController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ArbreResponseDto> updateArbre(@PathVariable int id, @RequestBody ArbreRequestDto arbreRequestDto) {
+    public ResponseEntity<ArbreResponseDto> updateArbre(@PathVariable int id, @RequestBody @Valid  ArbreRequestDto arbreRequestDto) {
         return new ResponseEntity<>(arbreService.updateArbre(id, arbreRequestDto), HttpStatus.OK);
     }
 

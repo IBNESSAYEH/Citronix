@@ -15,7 +15,6 @@ public class ChampRequestDto {
     private String nom;
     @NotNull(message = "nom du champ ne doivent pas etre null")
     @Min(1)
-    @Max(20000)
     private Double superficie;
     @NotNull(message = "nom du champ ne doivent pas etre null")
     private Long fermeId;

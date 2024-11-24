@@ -37,7 +37,7 @@ public class Ferme {
     private List<Champ> champs;
 
     @PrePersist
-    public void prePrsist(){
+    public void prePersist(){
         dateCreation = LocalDate.now();
         SuperficieExploitee = 0.0;
         nombreChamp = 10;

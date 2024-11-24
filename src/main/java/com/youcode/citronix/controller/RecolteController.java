@@ -4,6 +4,7 @@ import com.youcode.citronix.dto.requestDto.RecolteRequestDto;
 import com.youcode.citronix.dto.responseDto.RecolteResponseDto;
 import com.youcode.citronix.service.RecoltDetailService;
 import com.youcode.citronix.service.RecolteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class RecolteController {
     private RecolteService recolteService;
 
     @PostMapping
-    public ResponseEntity<RecolteResponseDto> createRecolte(@RequestBody RecolteRequestDto recolteRequestDto) {
+    public ResponseEntity<RecolteResponseDto> createRecolte(@RequestBody @Valid  RecolteRequestDto recolteRequestDto) {
         return new ResponseEntity<>(recolteService.createRecolte(recolteRequestDto), HttpStatus.CREATED);
     }
 
@@ -34,7 +35,7 @@ public class RecolteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RecolteResponseDto> updateRecolte(@PathVariable Long id, @RequestBody RecolteRequestDto recolteRequestDto) {
+    public ResponseEntity<RecolteResponseDto> updateRecolte(@PathVariable Long id, @RequestBody @Valid  RecolteRequestDto recolteRequestDto) {
         return new ResponseEntity<>(recolteService.updateRecolte(id, recolteRequestDto), HttpStatus.OK);
     }
 

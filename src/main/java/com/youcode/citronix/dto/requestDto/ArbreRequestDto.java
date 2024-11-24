@@ -8,11 +8,10 @@ import java.time.LocalDate;
 @Data
 public class ArbreRequestDto {
 
-    @NotNull(message = "Date of plantation cannot be null")
-    private LocalDate datePlantation;
-   
+    @NotNull(message = "La date de plantation ne peut pas etre nulle")
+    private LocalDate dateDePlantation;
 
-    @NotNull(message = "Champ ID cannot be null")
+    @NotNull(message = "Champ id cannot be null")
     private long champId;
 }
 

@@ -2,11 +2,13 @@ package com.youcode.citronix.controller;
 
 import com.youcode.citronix.dto.requestDto.FermeRequestDto;
 import com.youcode.citronix.dto.responseDto.FermeResponseDto;
+import com.youcode.citronix.entity.Ferme;
 import com.youcode.citronix.exception.fermeExceptions.FermeException;
 import com.youcode.citronix.exception.enums.ErrorMessages;
 import com.youcode.citronix.service.FermeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +31,16 @@ public class FermeController {
 
 
   @GetMapping
-  public ResponseEntity<List<FermeResponseDto>> getAllFermes() {
-    return new ResponseEntity<>(fermeService.getAllFermes(), HttpStatus.OK);
+  public ResponseEntity<Page<FermeResponseDto>> getAllFermes(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    return new ResponseEntity<>(fermeService.getAllFermes(page, size), HttpStatus.OK);
+  }
+
+  @GetMapping("/search")
+  public List<Ferme> getFermesByCriteria(
+          @RequestParam(required = false) String nom,
+          @RequestParam(required = false) String localisation,
+          @RequestParam(required = false) Double superficie) {
+    return fermeService.getFermesByCriteria(nom, localisation, superficie);
   }
 
   @GetMapping("/{id}")
@@ -39,7 +49,7 @@ public class FermeController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<FermeResponseDto> updateFerme(@PathVariable long id, @RequestBody FermeRequestDto fermeRequestDto) {
+  public ResponseEntity<FermeResponseDto> updateFerme(@PathVariable long id, @RequestBody  @Valid  FermeRequestDto fermeRequestDto) {
     return new ResponseEntity<>(fermeService.updateFerme(id, fermeRequestDto), HttpStatus.OK);
   }
 
