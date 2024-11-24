@@ -16,6 +16,8 @@ public class Vente {
     private LocalDate dateVente;
     @Column(nullable = false)
     private Double prixUnitaire;
+    @Column(nullable = false)
+    private Double revenue;
 
     @ManyToOne
     @JoinColumn(name = "recolte_id", nullable = false)

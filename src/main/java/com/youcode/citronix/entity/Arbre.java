@@ -1,5 +1,6 @@
 package com.youcode.citronix.entity;
 
+import com.youcode.citronix.entity.enums.ArbreAge;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,11 +14,15 @@ public class Arbre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
-    private LocalDate datePlantation;
+    private ArbreAge age;
+    @Column(nullable = false)
+    private LocalDate dateDePlantation;
     @ManyToOne
     @JoinColumn(name = "champ_id", nullable = false)
     private Champ champ;
 
-    @OneToMany(mappedBy = "arbre", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "arbre", cascade = CascadeType.ALL)
     private List<RecoltDetail> recoltDetails;
+
+
 }

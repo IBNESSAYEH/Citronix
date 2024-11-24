@@ -9,7 +9,7 @@ import java.util.List;
 public interface ArbreService {
     ArbreResponseDto createArbre(ArbreRequestDto arbreRequestDto);
     List<ArbreResponseDto> getAllArbres();
-    ArbreResponseDto getArbreById(int id);
-    ArbreResponseDto updateArbre(int id, ArbreRequestDto arbreRequestDto);
-    void deleteArbre(int id);
+    ArbreResponseDto getArbreById(long id);
+    ArbreResponseDto updateArbre(long id, ArbreRequestDto arbreRequestDto);
+    void deleteArbre(long id);
 }

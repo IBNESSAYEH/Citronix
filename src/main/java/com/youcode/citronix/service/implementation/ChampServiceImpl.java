@@ -37,10 +37,11 @@ public class ChampServiceImpl implements ChampService {
     if (checkFermeConditions) {
         Champ champCreated = modelMapper.map(champRequestDto, Champ.class);
         champCreated.setId(0);
+        champCreated.setNbrArbre(champCreated.getSuperficie() * 100);
         Champ createdChamp = champRepository.save(champCreated);
         return modelMapper.map(createdChamp, ChampResponseDto.class);
     }else{
-        throw new SuperficieInsuffisanteException("superficie insuffisante");
+        throw new SuperficieInsuffisanteException("superficie insuffisante e");
     }
 }
     @Transactional
@@ -82,11 +83,13 @@ public class ChampServiceImpl implements ChampService {
     @Transactional
     public ChampResponseDto updateChamp(long id, ChampRequestDto champRequestDto) {
         Champ champ = champRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Champ not found"));
+                .orElseThrow(() -> new ChampNotFoundException("Champ not found"));
+         boolean checkFermee = fermeRepository.existsById(champRequestDto.getFermeId());
+        if(!checkFermee) throw new FermeNotFoundException("ferme not found");
 
         updateSuperficieAndFerme(champ, champRequestDto);
 
-        champ.setNom(champRequestDto.getNom());
+       champ.setNom(champRequestDto.getNom());
         champ.setSuperficie(champRequestDto.getSuperficie());
         champ = champRepository.save(champ);
 
@@ -94,9 +97,9 @@ public class ChampServiceImpl implements ChampService {
     }
 
     private void updateSuperficieAndFerme(Champ champ, ChampRequestDto champRequestDto) {
-        Double oldSuperficie = champ.getSuperficie();
+         Double oldSuperficie = champ.getSuperficie();
         Double newSuperficie = champRequestDto.getSuperficie();
-        Double updatedSuperficieExploitee = champ.getFerme().getSuperficieExploitee() - oldSuperficie + newSuperficie;
+         Double updatedSuperficieExploitee = champ.getFerme().getSuperficieExploitee() - oldSuperficie + newSuperficie;
         if (newSuperficie > updatedSuperficieExploitee) {
             throw new SuperficieInsuffisanteException("Superficie insuffisante");
         }
@@ -111,10 +114,10 @@ public class ChampServiceImpl implements ChampService {
     @Override
     @Transactional
     public void deleteChamp(long id) {
-        Champ champ = champRepository.findById(id).orElseThrow(() -> new RuntimeException("Champ not found"));
-        Ferme ferme = champ.getFerme();
+        Champ champ = champRepository.findById(id).orElseThrow(() -> new ChampNotFoundException("Champ not found"));
+         Ferme ferme = champ.getFerme();
         ferme.setSuperficieExploitee(ferme.getSuperficieExploitee() - champ.getSuperficie());
-        fermeRepository.save(ferme);
+         fermeRepository.save(ferme);
         champRepository.delete(champ);
     }
 

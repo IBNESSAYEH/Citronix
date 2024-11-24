@@ -36,7 +36,7 @@ public class ChampController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ChampResponseDto> updateChamp(@PathVariable long id, @RequestBody ChampRequestDto champRequestDto) {
+    public ResponseEntity<ChampResponseDto> updateChamp(@PathVariable long id, @RequestBody @Valid  ChampRequestDto champRequestDto) {
         return new ResponseEntity<>(champService.updateChamp(id, champRequestDto), HttpStatus.OK);
     }
 

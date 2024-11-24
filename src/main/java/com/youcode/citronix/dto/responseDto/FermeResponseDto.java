@@ -13,13 +13,11 @@ import java.util.UUID;
 public class FermeResponseDto {
 
     private long id;
-
     private String nom;
-
     private String localisation;
-
     private Double superficie;
-
     private LocalDate dateCreation;
+    private int nombreChamp;
+    private Double SuperficieExploitee;
 
 }

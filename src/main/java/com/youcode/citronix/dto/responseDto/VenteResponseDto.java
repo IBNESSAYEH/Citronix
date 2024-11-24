@@ -11,5 +11,7 @@ public class VenteResponseDto {
     private LocalDate dateVente;
     private Double prixUnitaire;
     private String client;
+
+    private Double revenue;
 }
 

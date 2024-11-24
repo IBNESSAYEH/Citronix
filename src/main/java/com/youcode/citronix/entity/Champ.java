@@ -16,6 +16,8 @@ public class Champ {
     private String nom;
     @Column(nullable = false)
     private Double superficie;
+    @Column(nullable = false)
+    private Double nbrArbre;
 
     @ManyToOne
     @JoinColumn(name = "ferme_id", nullable = false)

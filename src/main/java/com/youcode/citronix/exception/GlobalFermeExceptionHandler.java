@@ -25,26 +25,26 @@ public class GlobalFermeExceptionHandler {
     @ExceptionHandler(value={FermeException.class})
     public ResponseEntity<Object> HandleFermeException(FermeException ex, WebRequest request)
     {
-        ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage());
+        ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage(), HttpStatus.BAD_REQUEST.value());
 
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = {SuperficieInsuffisanteException.class})
-    public ResponseEntity<Object> handleSuperficieInsuffisanteException(SuperficieInsuffisanteException ex, WebRequest request) {
-        ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage());
-        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object>  HandleSuperficieInsuffisanteException(SuperficieInsuffisanteException ex, WebRequest request) {
+        ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage(), HttpStatus.NOT_ACCEPTABLE.value());
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
     }
 
     @ExceptionHandler(value = {FermeNotFoundException.class})
-    public ResponseEntity<Object> handleFermeNotFoundException(FermeNotFoundException ex, WebRequest request) {
-        ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage());
+    public ResponseEntity<Object>  HandleFermeNotFoundException(FermeNotFoundException ex, WebRequest request) {
+        ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage(), HttpStatus.NOT_FOUND.value());
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(value = {NombreChampInsuffisant.class})
-    public ResponseEntity<Object> handleNombreChampInsuffisant(NombreChampInsuffisant ex, WebRequest request) {
-        ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage());
-        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object>  HandleNombreChampInsuffisant(NombreChampInsuffisant ex, WebRequest request) {
+        ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage(), HttpStatus.NOT_ACCEPTABLE.value());
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
     }
 
     @ExceptionHandler(value= MethodArgumentNotValidException.class)

@@ -10,8 +10,8 @@ import java.util.List;
 public interface RecoltDetailService {
 
     RecoltDetailResponseDto createRecoltDetail(RecoltDetailRequestDto recoltDetailRequestDto);
-
     List<RecoltDetailResponseDto> getAllRecoltDetails();
+    RecoltDetailResponseDto updateRecoltDetail(Long id, RecoltDetailRequestDto recoltDetailRequestDto);
 
     RecoltDetailResponseDto getRecoltDetailById(Long id);
 

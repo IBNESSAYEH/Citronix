@@ -12,5 +12,4 @@ public class RecolteResponseDto {
     private long id;
     private Saison saison;
     private LocalDate dateRecolte;
-    private Double quantiteTotale;
 }

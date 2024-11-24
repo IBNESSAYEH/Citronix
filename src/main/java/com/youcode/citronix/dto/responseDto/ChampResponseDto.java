@@ -10,4 +10,5 @@ public class ChampResponseDto {
     private long id;
     private String nom;
     private Double superficie;
+    private Double nbrArbre;
 }
