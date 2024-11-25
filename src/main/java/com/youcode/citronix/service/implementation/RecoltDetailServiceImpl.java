@@ -14,6 +14,7 @@ import com.youcode.citronix.repository.RecoltDetailRepository;
 import com.youcode.citronix.repository.RecolteRepository;
 import com.youcode.citronix.repository.ArbreRepository;
 import com.youcode.citronix.service.RecoltDetailService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,17 +25,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class RecoltDetailServiceImpl implements RecoltDetailService {
 
-    @Autowired
+
     private RecoltDetailRepository recoltDetailRepository;
 
 
-    @Autowired
+
     private ModelMapper modelMapper;
-    @Autowired
     private RecolteRepository recolteRepository;
-    @Autowired
+
     private ArbreRepository arbreRepository;
 
     @Override
