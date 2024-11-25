@@ -7,6 +7,7 @@ import com.youcode.citronix.exception.fermeExceptions.FermeException;
 import com.youcode.citronix.exception.enums.ErrorMessages;
 import com.youcode.citronix.service.FermeService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/fermes")
+@AllArgsConstructor
 public class FermeController {
 
-  @Autowired
   private FermeService fermeService;
 
   @PostMapping

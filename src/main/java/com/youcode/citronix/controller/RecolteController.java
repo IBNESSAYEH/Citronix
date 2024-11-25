@@ -5,6 +5,7 @@ import com.youcode.citronix.dto.responseDto.RecolteResponseDto;
 import com.youcode.citronix.service.RecoltDetailService;
 import com.youcode.citronix.service.RecolteService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +15,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/recoltes")
+@AllArgsConstructor
 public class RecolteController {
 
-    @Autowired
     private RecolteService recolteService;
 
     @PostMapping

@@ -8,6 +8,7 @@ import com.youcode.citronix.entity.enums.Saison;
 import com.youcode.citronix.exception.recolteException.RecoltNotFoundException;
 import com.youcode.citronix.repository.RecolteRepository;
 import com.youcode.citronix.service.RecolteService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class RecolteServiceImpl implements RecolteService {
 
-    @Autowired
+
     private RecolteRepository recolteRepository;
 
-    @Autowired
     private ModelMapper modelMapper;
 
     @Override

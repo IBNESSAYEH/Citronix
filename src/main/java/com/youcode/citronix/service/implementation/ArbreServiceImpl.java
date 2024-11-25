@@ -16,6 +16,7 @@ import com.youcode.citronix.repository.ArbreRepository;
 import com.youcode.citronix.repository.ChampRepository;
 import com.youcode.citronix.service.ArbreService;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,16 +29,16 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class ArbreServiceImpl implements ArbreService {
 
-    @Autowired
+
     private ArbreRepository arbreRepository;
 
-    @Autowired
+
     private ChampRepository champRepository;
 
 
-    @Autowired
     private ModelMapper modelMapper;
 
     @Override

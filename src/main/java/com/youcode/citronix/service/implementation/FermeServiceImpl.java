@@ -7,6 +7,7 @@ import com.youcode.citronix.exception.fermeExceptions.FermeNotFoundException;
 import com.youcode.citronix.repository.FermeRepository;
 import com.youcode.citronix.service.FermeService;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 @Service
+@AllArgsConstructor
 public class FermeServiceImpl implements FermeService {
 
-    @Autowired
     private FermeRepository fermeRepository;
 
-    @Autowired
     private ModelMapper modelMapper;
 
     @Override

@@ -4,6 +4,7 @@ import com.youcode.citronix.dto.requestDto.ArbreRequestDto;
 import com.youcode.citronix.dto.responseDto.ArbreResponseDto;
 import com.youcode.citronix.service.ArbreService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/arbres")
+@AllArgsConstructor
 public class ArbreController {
 
-    @Autowired
+
     private ArbreService arbreService;
 
     @PostMapping
