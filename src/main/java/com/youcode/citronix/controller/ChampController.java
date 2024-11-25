@@ -6,6 +6,7 @@ import com.youcode.citronix.entity.Champ;
 import com.youcode.citronix.exception.enums.ErrorMessages;
 import com.youcode.citronix.service.ChampService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/champs")
+@AllArgsConstructor
 public class ChampController {
-    @Autowired
+
     private ChampService champService;
     @PostMapping
     public ResponseEntity<ChampResponseDto> createChamp(@RequestBody @Valid ChampRequestDto champRequestDto) throws Exception {

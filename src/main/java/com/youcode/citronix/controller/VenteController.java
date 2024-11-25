@@ -4,6 +4,7 @@ import com.youcode.citronix.dto.requestDto.VenteRequestDto;
 import com.youcode.citronix.dto.responseDto.VenteResponseDto;
 import com.youcode.citronix.service.VenteService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/ventes")
+@AllArgsConstructor
 public class VenteController {
 
-    @Autowired
+
     private VenteService venteService;
 
     @PostMapping

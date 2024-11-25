@@ -39,7 +39,7 @@ class FermeServiceImplTest {
          requestDto.setNom("Testt f erme");
             requestDto.setLocalisation("casa");
         requestDto.setSuperficie(100.0);
-     Ferme ferme = new Ferme();
+      Ferme ferme = new Ferme();
         ferme.setNom(requestDto.getNom());
           ferme.setLocalisation(requestDto.getLocalisation());
         ferme.setSuperficie(requestDto.getSuperficie());
