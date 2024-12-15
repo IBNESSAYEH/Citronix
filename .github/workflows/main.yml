@@ -9,10 +9,7 @@ on:
     branches:
       - main
       - develop
-  pull:
-    branches:
-      - main
-      - develop
+
 
 
 jobs:
