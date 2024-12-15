@@ -5,6 +5,14 @@ on:
     branches:
       - main
       - develop
+  merge:
+    branches:
+      - main
+      - develop
+  pull:
+    branches:
+      - main
+      - develop
 
 
 jobs:
