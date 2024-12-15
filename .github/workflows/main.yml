@@ -10,6 +10,7 @@ jobs:
   build-deploy:
     name: Build and Deploy Citronix app
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -18,13 +19,19 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
-          java-version: 17
+          java-version: '17'
 
       - name: Unit Tests
-        run: mvn -B test --file pom.xml
+        run: mvn -B test --file pom.xml -e
+
+      - name: Upload Test Reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: target/surefire-reports/
 
       - name: Build the app
         run: |
           mvn clean
           mvn -B package --file pom.xml
-
