@@ -23,7 +23,7 @@ public class ChampController {
     @PostMapping
     public ResponseEntity<ChampResponseDto> createChamp(@RequestBody @Valid ChampRequestDto champRequestDto) throws Exception {
         if(champRequestDto.getNom().isBlank() || champRequestDto.getSuperficie() == null  ) throw new Exception(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
-        ChampResponseDto champResponseDto =champService.createChamp(champRequestDto);
+         ChampResponseDto champResponseDto =champService.createChamp(champRequestDto);
         return new ResponseEntity<>(champResponseDto, HttpStatus.CREATED);
     }
 
