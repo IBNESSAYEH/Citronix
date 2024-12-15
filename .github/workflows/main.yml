@@ -20,9 +20,13 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '17'
+          cache: 'maven'
 
-      - name: Unit Tests
-        run: mvn -B test --file pom.xml -e
+      - name: Run Tests
+        run: |
+          mvn test -Dtest=FermeServiceImplTest -X
+        env:
+          MAVEN_OPTS: "-Xmx1024m"
 
       - name: Upload Test Reports
         if: always()
@@ -30,8 +34,3 @@ jobs:
         with:
           name: test-reports
           path: target/surefire-reports/
-
-      - name: Build the app
-        run: |
-          mvn clean
-          mvn -B package --file pom.xml

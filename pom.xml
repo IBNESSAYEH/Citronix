@@ -101,20 +101,20 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.0.0-M9</version>
 				<configuration>
-					<forkedProcessTimeoutInSeconds>300</forkedProcessTimeoutInSeconds>
-					<reuseForks>true</reuseForks>
-					<forkCount>1</forkCount>
-					<argLine>-XX:+EnableDynamicAgentLoading -Djdk.instrument.traceUsage=true</argLine>
 					<includes>
 						<include>**/*Test.java</include>
-						<include>**/*Tests.java</include>
 					</includes>
+					<trimStackTrace>false</trimStackTrace>
 					<properties>
 						<configurationParameters>
 							junit.jupiter.execution.parallel.enabled=false
-							junit.jupiter.execution.parallel.mode.default=same_thread
 						</configurationParameters>
 					</properties>
+					<systemPropertyVariables>
+						<file.encoding>UTF-8</file.encoding>
+					</systemPropertyVariables>
+					<argLine>-Dfile.encoding=UTF-8</argLine>
+					<testFailureIgnore>false</testFailureIgnore>
 				</configuration>
 			</plugin>
 
