@@ -19,6 +19,7 @@ public class Recolte {
     private Saison saison;
     @Column(nullable = false)
     private LocalDate dateRecolte;
+
     @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL)
     private List<Vente> ventes;
 

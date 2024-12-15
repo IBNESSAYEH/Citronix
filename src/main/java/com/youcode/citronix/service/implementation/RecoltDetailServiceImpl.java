@@ -31,8 +31,6 @@ public class RecoltDetailServiceImpl implements RecoltDetailService {
 
     private RecoltDetailRepository recoltDetailRepository;
 
-
-
     private ModelMapper modelMapper;
     private RecolteRepository recolteRepository;
 
@@ -97,4 +95,7 @@ public class RecoltDetailServiceImpl implements RecoltDetailService {
                 .orElseThrow(() -> new RecoltNotFoundException("RecoltDetail not found"));
         recoltDetailRepository.delete(recoltDetail);
     }
+
+
+
 }
