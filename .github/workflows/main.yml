@@ -5,11 +5,7 @@ on:
     branches:
       - main
       - develop
-  merge:
-    branches:
-      - main
-      - develop
-
+ 
 
 
 jobs:
