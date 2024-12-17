@@ -5,7 +5,6 @@ import com.youcode.citronix.dto.responseDto.FermeResponseDto;
 import com.youcode.citronix.entity.Ferme;
 import com.youcode.citronix.exception.fermeExceptions.FermeNotFoundException;
 import com.youcode.citronix.repository.FermeRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
