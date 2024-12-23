@@ -1,10 +1,11 @@
-name: Build & Deploy Citronix app
+name: Build & Deploy Citronix applications
 
 on:
   push:
     branches:
       - main
       - develop
+
 
 jobs:
   checkout:
