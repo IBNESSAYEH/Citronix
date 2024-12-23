@@ -69,11 +69,11 @@ class FermeServiceImplTest {
         long id = 1L;
           Ferme ferme = new Ferme();
              ferme.setId(id);
-        when(fermeRepository.findById(0L)).thenReturn(Optional.of(ferme));
+        when(fermeRepository.findById(1L)).thenReturn(Optional.of(ferme));
           when(modelMapper.map(ferme, FermeResponseDto.class)).thenReturn(new FermeResponseDto());
          FermeResponseDto response = fermeService.getFermeById(id);
         assertNotNull(response);
-      verify(fermeRepository, times(1)).findById(0L);
+      verify(fermeRepository, times(1)).findById(1L);
     }
 
     @Test
